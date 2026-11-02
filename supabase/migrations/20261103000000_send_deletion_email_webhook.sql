@@ -79,3 +79,4 @@ CREATE TRIGGER tr_send_deletion_email
 
 COMMENT ON FUNCTION public.handle_new_deletion_request_email() IS
   'Dispatches asynchronous email notification via Supabase pg_net whenever an account deletion request is recorded.';
+
