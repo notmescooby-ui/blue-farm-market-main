@@ -39,8 +39,12 @@ export async function triggerDeletionEmails(params: SendDeletionEmailParams): Pr
       console.log("Deletion emails dispatched via Supabase Edge Function:", data);
       return;
     }
+
+    if (error) {
+      console.warn("Supabase Edge Function returned error:", error);
+    }
   } catch (err) {
-    console.warn("Edge function not available, attempting direct dispatch fallback:", err);
+    console.warn("Edge function invocation failed, attempting direct dispatch fallback:", err);
   }
 
   // 2. Direct Resend Dispatch Fallback (Uses VITE_RESEND_API_KEY if configured in Vercel/.env)
