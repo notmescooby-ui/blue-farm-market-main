@@ -29,6 +29,7 @@ import {
   type VerifiedIdentifier,
 } from "@/lib/deletion/verification";
 import { requestOtpCode, verifyOtpCode, verifyWithPassword } from "@/lib/deletion/otp-flow";
+import { triggerDeletionEmails } from "@/lib/deletion/email-service";
 import { supabase } from "@/lib/supabase/client";
 import {
   KeyRound,
@@ -69,6 +70,7 @@ export function DeletionRequestForm() {
   const [password, setPassword] = useState("");
 
   // OTP Form fields
+  const [fullName, setFullName] = useState("");
   const [identifier, setIdentifier] = useState("");
   const [accountType, setAccountType] = useState<"farmer" | "buyer">("farmer");
   const [reason, setReason] = useState("");
@@ -391,6 +393,16 @@ export function DeletionRequestForm() {
     mode: "otp" | "manual" | "authenticated",
     contactDetail?: string,
   ) {
+    triggerDeletionEmails({
+      reference_code: referenceCode,
+      user_name: fullName.trim() || manualName.trim() || currentUser?.user_metadata?.full_name || currentUser?.user_metadata?.name || "BlueFarm User",
+      account_type: accountType,
+      contact: contactDetail || manualPhone || manualEmail || identifier || currentUser?.email || "Not specified",
+      user_email: contact?.kind === "email" ? contact.value : manualEmail.trim() || currentUser?.email,
+      reason: reason.trim() || manualReason.trim() || authDeleteReason.trim() || undefined,
+      requested_at: requestedAt,
+    }).catch((err) => console.warn("Email dispatch error:", err));
+
     setResult({ referenceCode, requestedAt, mode, contactDetail });
     setWorking(false);
     setStep("done");
@@ -678,6 +690,21 @@ export function DeletionRequestForm() {
                   Password (Reviewer)
                 </button>
               </div>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="user-full-name" className="text-xs font-semibold">
+                Your full name (Optional)
+              </Label>
+              <Input
+                id="user-full-name"
+                type="text"
+                autoComplete="name"
+                placeholder="e.g. Ramesh Kumar"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="bg-card"
+              />
             </div>
 
             <div className="grid gap-2">
