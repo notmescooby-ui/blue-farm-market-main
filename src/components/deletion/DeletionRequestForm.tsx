@@ -40,6 +40,7 @@ export function DeletionRequestForm() {
   const [password, setPassword] = useState("");
 
   // Form fields
+  const [fullName, setFullName] = useState("");
   const [identifier, setIdentifier] = useState("");
   const [accountType, setAccountType] = useState<"farmer" | "buyer">("farmer");
   const [reason, setReason] = useState("");
@@ -160,7 +161,7 @@ export function DeletionRequestForm() {
     }
 
     // Fetch user name before profile scrubbing
-    let userName = user.user_metadata?.full_name || user.user_metadata?.name || "";
+    let userName = fullName.trim() || user.user_metadata?.full_name || user.user_metadata?.name || "";
     if (!userName) {
       try {
         const { data: profile } = await supabase
@@ -296,10 +297,10 @@ export function DeletionRequestForm() {
           </svg>
         </div>
         <h3 className="mt-5 font-display text-2xl font-bold text-primary">
-          Account Deletion Request Received
+          Account Deletion Request Processed
         </h3>
         <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-          Your deletion request has been recorded and will be processed after verification checks
+          Your deletion request has been recorded and an email notification has been dispatched to BlueFarm admin (bluefarm1572@gmail.com).
           and BlueFarm&apos;s review of active orders, pending deliveries and other applicable
           obligations. Deletion is completed only after these checks pass.
         </p>
@@ -478,6 +479,18 @@ export function DeletionRequestForm() {
       </div>
 
       <div className="mt-6 grid gap-5">
+        <div className="grid gap-2">
+          <Label htmlFor="user-full-name">Your full name</Label>
+          <Input
+            id="user-full-name"
+            type="text"
+            autoComplete="name"
+            placeholder="e.g. Ramesh Kumar"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+        </div>
+
         <div className="grid gap-2">
           <Label htmlFor="identifier">Registered email or phone number</Label>
           <Input
