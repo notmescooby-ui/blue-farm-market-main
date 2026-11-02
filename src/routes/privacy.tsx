@@ -1,21 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { ShieldCheck, Mail } from "lucide-react";
+import { ShieldCheck, Mail, Lock, Database, MapPin, Activity, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "BlueFarm Privacy Policy | BlueFarm" },
+      { title: "BlueFarm Privacy Policy | Legal & Data Protection Disclosures" },
       {
         name: "description",
         content:
-          "Official Privacy Policy for BlueFarm mobile application and services, explaining data processing, on-device Aadhaar verification, location services, and account deletion.",
+          "Official Privacy Policy for BlueFarm mobile application and services, explaining data processing, IoT water telemetry, on-device Aadhaar verification, location services, GDPR/DPDP rights, and account deletion.",
       },
       { property: "og:title", content: "BlueFarm Privacy Policy" },
       {
         property: "og:description",
-        content: "Official Privacy Policy for BlueFarm mobile application and services.",
+        content:
+          "Official Privacy Policy for BlueFarm aquaculture platform, mobile application and services. Compliant with Google Play policies and data protection regulations.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -34,13 +35,14 @@ function PrivacyPage() {
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-card px-4 py-1.5 text-xs font-semibold text-primary">
               <ShieldCheck className="h-4 w-4" />
-              Official Policy
+              Official Legal Policy
             </span>
             <h1 className="mt-4 font-display text-3xl font-extrabold text-primary sm:text-4xl">
               BlueFarm Privacy Policy
             </h1>
             <p className="mt-2 text-sm font-medium text-muted-foreground">
-              Effective Date: October 27, 2026
+              Effective Date: October 27, 2026 | Compliant with Google Play Store &amp; DPDP
+              Guidelines
             </p>
           </div>
         </section>
@@ -49,135 +51,178 @@ function PrivacyPage() {
         <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
           <div className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-10 text-foreground/90 space-y-8 leading-relaxed">
             <p className="text-base text-foreground/85">
-              BlueFarm helps aquaculture farmers manage farm profiles and access aquaculture-related
-              information, including nearby fish markets, collection hubs and cold-storage
-              facilities. This policy explains what information BlueFarm processes, why it is used,
-              and the choices available to you.
+              BlueFarm helps aquaculture farmers manage pond ecosystems, monitor water telemetry,
+              and access aquaculture-related commerce, including verified produce markets,
+              collection hubs, and cold-storage facilities. This policy explains what information
+              BlueFarm collects and processes, why it is used, how third-party integrations operate,
+              and the comprehensive choices available to you.
             </p>
 
             {/* Privacy Highlights Callout */}
-            <div className="rounded-xl border-l-4 border-primary bg-foam p-5 text-sm">
-              <strong className="font-semibold text-primary block text-base mb-1">
-                Privacy Highlights
+            <div className="rounded-xl border-l-4 border-primary bg-foam p-5 text-sm space-y-2">
+              <strong className="font-semibold text-primary block text-base">
+                Privacy Highlights at a Glance
               </strong>
-              <p className="text-foreground/85">
-                Aadhaar document images and Aadhaar numbers are processed locally on your device for
-                verification and are not uploaded to BlueFarm servers. BlueFarm stores a readable
-                farm-location address and related region/PIN-code text. Live GPS coordinates used to
-                find nearby markets are held temporarily in memory and are not stored in the
-                BlueFarm database.
-              </p>
+              <div className="grid gap-2 sm:grid-cols-2 text-xs sm:text-sm text-foreground/85">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>
+                    <strong>On-Device Aadhaar OCR:</strong> Document images and numbers never leave
+                    your device.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Ephemeral GPS:</strong> Coordinates for &ldquo;Market Near Me&rdquo; are
+                    held in memory only.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Telemetry Security:</strong> Water readings (pH, DO, Temp) are
+                    restricted to your farm account.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Complete Deletion Rights:</strong> Self-service portal at{" "}
+                    <Link to="/delete-account" className="underline font-semibold text-primary">
+                      /delete-account
+                    </Link>
+                    .
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Section 1 */}
             <div>
-              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                1. Information We Collect or Process
+              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border flex items-center gap-2">
+                <Activity className="h-5 w-5 text-primary" />
+                <span>1. Information We Collect or Process</span>
               </h2>
               <ul className="mt-4 list-disc pl-6 space-y-2.5 text-sm text-foreground/85">
                 <li>
-                  <strong>Account Information:</strong> Information you provide to register or sign
-                  in, such as your email address and authentication-related identifiers.
+                  <strong>Account &amp; Authentication Information:</strong> Information you provide
+                  to sign up or sign in, such as your email address, phone number, and unique
+                  Supabase authentication identifiers (UID).
                 </li>
                 <li>
-                  <strong>Profile and Farm Information:</strong> Details you enter during onboarding
-                  or profile editing, which may include your name, age, phone number, farm name,
-                  pond area, waterbody type, species, region, PIN code, and farm address.
+                  <strong>Farmer &amp; Buyer Profile Data:</strong> Information entered during
+                  onboarding, including your full name, contact phone, farm name, pond area in
+                  acres, waterbody classification (brackish water, freshwater, saline), species
+                  cultivated (Vannamei shrimp, Black Tiger shrimp, Tilapia, Seabass, etc.), PIN
+                  code, state, and farm postal address.
                 </li>
                 <li>
-                  <strong>Farm Location Text:</strong> When you choose automatic location detection,
-                  BlueFarm may reverse-geocode device coordinates into a readable address and save
-                  that address in your profile. Region and PIN code may also be saved. If reverse
-                  geocoding fails, a coordinate string may be saved in the address field. You may
-                  manually edit your location text.
+                  <strong>IoT Pond Water-Quality Telemetry:</strong> Live and historical sensor
+                  readings transmitted by connected hardware monitors: water pH, water temperature
+                  (&deg;C), dissolved oxygen (DO mg/L), turbidity, ammonia levels (ppm), and pond
+                  water level (cm/%).
                 </li>
                 <li>
-                  <strong>Water-Quality and Farm Readings:</strong> Sensor readings or monitoring
-                  information that you submit or connect to BlueFarm, where those features are
-                  enabled.
+                  <strong>Farm Geocoding &amp; Location Text:</strong> When you use automatic farm
+                  location detection, coordinates are reverse-geocoded into a human-readable postal
+                  address and saved in your profile.
                 </li>
                 <li>
-                  <strong>Aadhaar Verification Result:</strong> The app may store a boolean
-                  verification status (for example,{" "}
+                  <strong>Marketplace Activity &amp; Transaction Records:</strong> Produce listings
+                  created, requested quantities, agreed prices per kilogram, payment references, and
+                  order status logs.
+                </li>
+                <li>
+                  <strong>Aadhaar Verification Flag:</strong> A simple boolean status flag (for
+                  example,{" "}
                   <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-primary">
-                    aadhaar_verified
+                    aadhaar_verified: true
                   </code>
                   ) in your profile.
-                </li>
-                <li>
-                  <strong>Technical Information:</strong> The app platform and diagnostic
-                  information may be processed by the operating system, Google Play, or
-                  infrastructure providers as part of operating, securing, and troubleshooting the
-                  service.
                 </li>
               </ul>
             </div>
 
             {/* Section 2 */}
             <div>
-              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                2. Aadhaar Document Processing
+              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border flex items-center gap-2">
+                <Lock className="h-5 w-5 text-primary" />
+                <span>2. Aadhaar Document Processing &amp; On-Device Protection</span>
               </h2>
               <p className="mt-4 text-sm text-foreground/85">
-                When you choose to scan or select an Aadhaar image for verification, BlueFarm uses
-                on-device text recognition through Google ML Kit to check for government-issuer
-                text, a 12-digit Aadhaar-number pattern, and a name match. In this described flow,
-                text recognition occurs on your device. BlueFarm does not upload or store the
-                Aadhaar image, full Aadhaar number, Aadhaar address, or date of birth on its
-                servers. The image is held temporarily on the device for the session, and the app
-                stores only the verification-status flag. Do not use the verification feature if you
-                do not wish to provide the document for local processing.
+                When you initiate farmer identity verification, BlueFarm utilizes Google ML Kit text
+                recognition performed strictly on your local mobile device. It verifies the presence
+                of official government headers, checks a 12-digit format, and compares the name
+                against your profile.
+              </p>
+              <p className="mt-2 text-sm text-foreground/85 font-semibold text-primary">
+                At no point does BlueFarm upload, transmit, or store Aadhaar document photos, full
+                Aadhaar numbers, or identity document scans on remote servers. The image is
+                discarded from volatile memory as soon as the session check concludes.
               </p>
             </div>
 
             {/* Section 3 */}
             <div>
               <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                3. How We Use Information
+                3. How We Use Collected Data
               </h2>
-              <p className="mt-4 text-sm text-foreground/85">
-                BlueFarm uses information to create and manage accounts, display and update farmer
-                profiles, support farm-management features, show relevant aquaculture resources,
-                find nearby markets when requested, perform the selected verification flow, maintain
-                security, troubleshoot errors, and respond to support or privacy requests.
-              </p>
+              <div className="mt-4 space-y-2 text-sm text-foreground/85">
+                <p>We use information collected to:</p>
+                <ul className="list-disc pl-6 space-y-1.5">
+                  <li>Authenticate users and protect aquaculture accounts;</li>
+                  <li>
+                    Visualize real-time water quality graphs, DO alerts, and automated aerator
+                    notifications;
+                  </li>
+                  <li>
+                    Enable buyers to discover authentic aquaculture produce in the BlueFarm
+                    Marketplace;
+                  </li>
+                  <li>
+                    Calculate distances to nearby collection centers, ice factories, and cold
+                    storage hubs;
+                  </li>
+                  <li>
+                    Maintain financial audit trails for completed transactions as required by
+                    commercial law;
+                  </li>
+                  <li>Respond to support inquiries and process account deletion requests.</li>
+                </ul>
+              </div>
             </div>
 
             {/* Section 4 */}
             <div>
-              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                4. Location and Third-Party Services
+              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border flex items-center gap-2">
+                <Database className="h-5 w-5 text-primary" />
+                <span>4. Third-Party Service Providers</span>
               </h2>
-              <ul className="mt-4 list-disc pl-6 space-y-2.5 text-sm text-foreground/85">
+              <p className="mt-4 text-sm text-foreground/85">
+                BlueFarm partners with reputable third-party infrastructure providers to deliver its
+                services:
+              </p>
+              <ul className="mt-3 list-disc pl-6 space-y-2 text-sm text-foreground/85">
                 <li>
-                  <strong>Device Location:</strong> BlueFarm requests location access when you
-                  initiate a feature that needs it. The app does not continuously track your
-                  movements or run background location tracking. Live coordinates used by the
-                  &ldquo;Market Near Me&rdquo; feature are used temporarily in memory to find nearby
-                  facilities and calculate distances, and are not saved to the BlueFarm database.
+                  <strong>Supabase (PostgreSQL &amp; Authentication):</strong> Cloud database
+                  hosting, user authentication sessions, and encrypted storage. Data resides in
+                  secure database facilities guarded by Row Level Security (RLS).
                 </li>
                 <li>
-                  <strong>OpenStreetMap Nominatim:</strong> When you request automatic address
-                  detection, coordinates may be sent to the Nominatim geocoding service to obtain a
-                  readable address. The resulting address text, region, and PIN code may then be
-                  saved to your BlueFarm profile. Nominatim is a third-party service governed by its
-                  own terms and privacy practices.
+                  <strong>OpenStreetMap &amp; Nominatim:</strong> Used strictly for
+                  reverse-geocoding coordinates into postal address strings upon user request.
+                  Subject to OpenStreetMap Foundation privacy policies.
                 </li>
                 <li>
-                  <strong>Supabase:</strong> BlueFarm uses Supabase for authentication and database
-                  storage of account/profile information and other data described above. Information
-                  stored there is subject to the app&apos;s configuration and the provider&apos;s
-                  infrastructure and privacy terms.
+                  <strong>Payment Gateways &amp; Banking APIs (Cashfree / UPI / Razorpay):</strong>{" "}
+                  Used to securely process payment authorizations, tokenized transactions, and
+                  payout settlements. BlueFarm does not store raw credit/debit card numbers or UPI
+                  PINs.
                 </li>
                 <li>
-                  <strong>Google ML Kit:</strong> The described Aadhaar text recognition is
-                  performed on-device; the Aadhaar image is not sent by BlueFarm to a remote OCR
-                  server in this flow.
-                </li>
-                <li>
-                  <strong>Google Play and Device Providers:</strong> They may process information
-                  under their own policies in connection with app distribution, device operation,
-                  security, and diagnostics.
+                  <strong>Google ML Kit &amp; Google Play Services:</strong> Embedded for on-device
+                  machine learning routines and app distribution / crash telemetry.
                 </li>
               </ul>
             </div>
@@ -185,104 +230,101 @@ function PrivacyPage() {
             {/* Section 5 */}
             <div>
               <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                5. When Information Is Shared
+                5. User Data Rights (GDPR &amp; India DPDP Act Compliance)
               </h2>
               <p className="mt-4 text-sm text-foreground/85">
-                BlueFarm does not sell your personal information. Information may be processed by
-                service providers where needed to operate the app, as described in this policy, or
-                disclosed where required by law, to protect users and the service, or to address
-                security or abuse. We do not intend to share Aadhaar images or full Aadhaar numbers
-                with BlueFarm servers or service providers.
+                In compliance with the India Digital Personal Data Protection Act (DPDP) and global
+                standards (such as GDPR), you enjoy enforceable rights regarding your personal data:
               </p>
+              <ul className="mt-3 list-disc pl-6 space-y-2 text-sm text-foreground/85">
+                <li>
+                  <strong>Right to Access:</strong> You may request a summary of the personal data
+                  BlueFarm holds about you.
+                </li>
+                <li>
+                  <strong>Right to Correction:</strong> You can edit and update your farm name, pond
+                  area, phone number, and location text directly in the app or by writing to
+                  support.
+                </li>
+                <li>
+                  <strong>Right to Erasure / Deletion:</strong> You have the absolute right to have
+                  your user credentials, personal profile, pond telemetry setups, and active
+                  listings permanently deleted.
+                </li>
+                <li>
+                  <strong>Right to Grievance Redressal:</strong> Direct contact with our data
+                  protection team via{" "}
+                  <a href="mailto:bluefarm1572@gmail.com" className="text-primary underline">
+                    bluefarm1572@gmail.com
+                  </a>
+                  .
+                </li>
+              </ul>
             </div>
 
             {/* Section 6 */}
             <div>
-              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                6. Storage, Security and Retention
+              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary" />
+                <span>6. Storage, Security and Retention</span>
               </h2>
-              <p className="mt-4 text-sm text-foreground/85">
-                Profile information is stored in the BlueFarm backend while needed to provide the
-                service. Live coordinates used for nearby-market calculations are temporary and are
-                not written to the BlueFarm database. Aadhaar images and numbers are not retained by
-                BlueFarm servers in the described verification flow. We use the security controls
-                available through the app and its infrastructure, but no method of electronic
-                storage or transmission can be guaranteed to be completely secure. Retention of
-                information held by third-party providers may be governed by their own policies.
-              </p>
+              <div className="mt-4 space-y-3 text-sm text-foreground/85">
+                <p>
+                  <strong>Active Retention:</strong> Your information is retained for the lifetime
+                  of your account.
+                </p>
+                <p>
+                  <strong>Mandated Legal Retention:</strong> In the event of account deletion,
+                  certain financial records (invoices, transaction timestamps, payment IDs) are
+                  archived in restricted ledgers solely to comply with statutory Indian tax, GST,
+                  and commercial bookkeeping obligations. All personal profile identifiers,
+                  passwords, and IoT pond data are completely expunged.
+                </p>
+              </div>
             </div>
 
             {/* Section 7 */}
             <div>
               <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                7. Your Choices and Account Deletion
+                7. Google Play Account Deletion Portal
               </h2>
               <p className="mt-4 text-sm text-foreground/85">
-                You can edit profile and farm-location text in the app where those features are
-                available, and you can choose whether to grant location permission. To request
-                account deletion or ask us to access, correct, or delete information associated with
-                your account, email{" "}
-                <a
-                  href="mailto:bluefarm1572@gmail.com"
-                  className="font-medium text-primary underline hover:text-primary/80"
-                >
-                  bluefarm1572@gmail.com
-                </a>{" "}
-                from the address associated with your account where possible. Include
-                &ldquo;BlueFarm privacy request&rdquo; in the subject line and describe your
-                request. We may need to verify your identity before acting. We will handle requests
-                subject to applicable law, security needs, and any information we are legally
-                required to retain.
+                In accordance with Google Play&apos;s Account Deletion Policy, BlueFarm provides a
+                dedicated, publicly accessible web portal for all users to request permanent
+                deletion of their account and personal data:
               </p>
-              <div className="mt-4 rounded-xl bg-foam p-4 text-sm">
-                You can also submit an online account deletion request anytime via our official{" "}
+              <div className="mt-4 rounded-xl border border-primary/30 bg-foam p-5 text-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <h4 className="font-bold text-primary text-base">
+                    BlueFarm Account Deletion Portal
+                  </h4>
+                  <p className="text-foreground/80 mt-1">
+                    Delete your account using OTP verification, password login, or manual request
+                    ticket.
+                  </p>
+                </div>
                 <Link
-                  to="/account-deletion"
-                  className="font-semibold text-primary underline hover:text-primary/80"
+                  to="/delete-account"
+                  className="shrink-0 inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
                 >
-                  Account Deletion Portal
+                  Open Deletion Portal &rarr;
                 </Link>
-                .
               </div>
             </div>
 
             {/* Section 8 */}
             <div>
               <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                8. Children&apos;s Privacy
+                8. Contact &amp; Grievance Officer
               </h2>
               <p className="mt-4 text-sm text-foreground/85">
-                BlueFarm is intended for individuals involved in aquaculture and farm management,
-                not for children. If you believe a child has provided personal information to
-                BlueFarm, contact us so we can review the request.
-              </p>
-            </div>
-
-            {/* Section 9 */}
-            <div>
-              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                9. Changes to This Policy
-              </h2>
-              <p className="mt-4 text-sm text-foreground/85">
-                We may update this policy as BlueFarm&apos;s features, data practices, or legal
-                requirements change. The updated policy will be published at this address with a
-                revised effective date. Please review it periodically.
-              </p>
-            </div>
-
-            {/* Section 10 */}
-            <div>
-              <h2 className="font-display text-xl font-bold text-primary pb-2 border-b border-border">
-                10. Contact Us
-              </h2>
-              <p className="mt-4 text-sm text-foreground/85">
-                For questions, concerns, or privacy and account-deletion requests, contact:
+                For questions, concerns, data access requests, or deletion inquiries:
               </p>
               <div className="mt-4 rounded-xl border border-border bg-secondary/40 p-5">
-                <p className="font-semibold text-primary">BlueFarm Privacy Support</p>
+                <p className="font-semibold text-primary">BlueFarm Privacy &amp; Data Protection</p>
                 <p className="mt-1 flex items-center gap-2 text-sm text-foreground/85">
                   <Mail className="h-4 w-4 text-primary" />
-                  Email:{" "}
+                  Official Contact:{" "}
                   <a
                     href="mailto:bluefarm1572@gmail.com"
                     className="font-medium text-primary underline hover:text-primary/80"

@@ -7,9 +7,8 @@
 /*
  * BlueFarm design system.
  *
- * Deep teal-green brand palette drawn from the BlueFarm logo, on soft
- * mint-tinted light backgrounds. Aquatic accents (foam, aqua, deep) are
- * used for panels, wave dividers and highlights.
+ * Refined, institutional dark slate/navy theme: Deep oceanic charcoal with
+ * elevated card surfaces, crisp typography, and luminous teal/aqua accents.
  */
 
 @theme inline {
@@ -20,7 +19,7 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: "Bricolage Grotesque", "Manrope", ui-sans-serif, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -45,33 +44,103 @@
   --color-deep: var(--deep);
   --color-deep-foreground: var(--deep-foreground);
   --color-aqua: var(--aqua);
+  --color-seafoam: #DDEBE6;
+  --color-tidal: #AEC6C2;
+  --color-teal-deep: #628788;
+  --color-stormy: #3D676F;
 }
 
 :root {
-  --radius: 0.75rem;
-  --background: oklch(0.987 0.007 170);
-  --foreground: oklch(0.29 0.04 205);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.29 0.04 205);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.29 0.04 205);
-  --primary: oklch(0.44 0.075 197);
-  --primary-foreground: oklch(0.985 0.006 175);
-  --secondary: oklch(0.94 0.03 168);
-  --secondary-foreground: oklch(0.36 0.06 197);
-  --muted: oklch(0.955 0.016 172);
-  --muted-foreground: oklch(0.51 0.032 200);
-  --accent: oklch(0.9 0.055 175);
-  --accent-foreground: oklch(0.32 0.055 197);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.985 0.006 175);
-  --border: oklch(0.9 0.022 178);
-  --input: oklch(0.9 0.022 178);
-  --ring: oklch(0.6 0.08 185);
-  --foam: oklch(0.962 0.024 168);
-  --deep: oklch(0.3 0.05 202);
-  --deep-foreground: oklch(0.965 0.02 172);
-  --aqua: oklch(0.72 0.105 182);
+  --radius: 0.875rem;
+
+  /*
+   * Cedar + Mint Co. Coastal Palette:
+   * Pale Seafoam:  #DDEBE6 (Ambient surface & backgrounds)
+   * Tidal Mist:    #AEC6C2 (Borders, secondary pills, accents)
+   * Deep Teal:     #628788 (Interactive links, active badges)
+   * Stormy Waters: #3D676F (Primary CTA buttons, headers, brand mark)
+   */
+  --background: #DDEBE6;
+  --foreground: #182C30;
+  --card: #F2F7F5;
+  --card-foreground: #182C30;
+  --popover: #F2F7F5;
+  --popover-foreground: #182C30;
+  --primary: #3D676F;
+  --primary-foreground: #FFFFFF;
+  --secondary: #AEC6C2;
+  --secondary-foreground: #142427;
+  --muted: #C8DED8;
+  --muted-foreground: #436970;
+  --accent: #628788;
+  --accent-foreground: #FFFFFF;
+  --destructive: #B24646;
+  --destructive-foreground: #FFFFFF;
+  --border: #AEC6C2;
+  --input: #AEC6C2;
+  --ring: #3D676F;
+  --foam: #DDEBE6;
+  --deep: #253F45;
+  --deep-foreground: #DDEBE6;
+  --aqua: #628788;
+}
+
+.dark {
+  /*
+   * Nocturnal Stormy Waters mode (Deep Teal Night)
+   */
+  --background: #17282C;
+  --foreground: #DDEBE6;
+  --card: #20363C;
+  --card-foreground: #DDEBE6;
+  --popover: #20363C;
+  --popover-foreground: #DDEBE6;
+  --primary: #AEC6C2;
+  --primary-foreground: #122225;
+  --secondary: #2A454C;
+  --secondary-foreground: #DDEBE6;
+  --muted: #243C42;
+  --muted-foreground: #AEC6C2;
+  --accent: #628788;
+  --accent-foreground: #FFFFFF;
+  --destructive: #C45555;
+  --destructive-foreground: #FFFFFF;
+  --border: #3D676F;
+  --input: #325057;
+  --ring: #AEC6C2;
+  --foam: #1E3339;
+  --deep: #101D20;
+  --deep-foreground: #DDEBE6;
+  --aqua: #AEC6C2;
+}
+
+.light {
+  /*
+   * Explicit Light Coastal mode (Identical to :root Coastal Seafoam)
+   */
+  --background: #DDEBE6;
+  --foreground: #182C30;
+  --card: #F2F7F5;
+  --card-foreground: #182C30;
+  --popover: #F2F7F5;
+  --popover-foreground: #182C30;
+  --primary: #3D676F;
+  --primary-foreground: #FFFFFF;
+  --secondary: #AEC6C2;
+  --secondary-foreground: #142427;
+  --muted: #C8DED8;
+  --muted-foreground: #436970;
+  --accent: #628788;
+  --accent-foreground: #FFFFFF;
+  --destructive: #B24646;
+  --destructive-foreground: #FFFFFF;
+  --border: #AEC6C2;
+  --input: #AEC6C2;
+  --ring: #3D676F;
+  --foam: #DDEBE6;
+  --deep: #253F45;
+  --deep-foreground: #DDEBE6;
+  --aqua: #628788;
 }
 
 @layer base {
@@ -79,11 +148,21 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   h1,
@@ -91,20 +170,28 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 }
 
-/* Gentle scale pattern used behind hero panels — subtle fish-scale ripples. */
 @utility scale-pattern {
   background-image: radial-gradient(
     circle at 50% 120%,
-    color-mix(in oklab, var(--color-aqua) 16%, transparent) 0 8px,
+    color-mix(in srgb, var(--primary) 12%, transparent) 0 8px,
     transparent 9px
   );
-  background-size: 26px 20px;
+  background-size: 28px 22px;
 }
 
 @utility text-balance-tight {
   text-wrap: balance;
+}
+
+@utility subtle-surface {
+  background: linear-gradient(180deg, rgba(174, 198, 194, 0.25) 0%, rgba(221, 235, 230, 0.75) 100%);
+  backdrop-filter: blur(12px);
+}
+
+@utility transition-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
 }

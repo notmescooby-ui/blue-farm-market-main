@@ -36,4 +36,28 @@ describe("App routing", () => {
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
     expect(matches.at(-1)?.routeId).toBe("/contact");
   });
+
+  it("matches dedicated account deletion route /delete-account", () => {
+    const matches = router.matchRoutes("/delete-account");
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.at(-1)?.routeId).toBe("/delete-account");
+  });
+
+  it("matches marketplace route /marketplace", () => {
+    const matches = router.matchRoutes("/marketplace");
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.at(-1)?.routeId).toBe("/marketplace");
+  });
+
+  it("matches products route /products", () => {
+    const matches = router.matchRoutes("/products");
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.at(-1)?.routeId).toBe("/products");
+  });
+
+  it("matches terms of service route /terms", () => {
+    const matches = router.matchRoutes("/terms");
+    expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.at(-1)?.routeId).toBe("/terms");
+  });
 });
