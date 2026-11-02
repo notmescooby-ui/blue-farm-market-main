@@ -21,6 +21,7 @@ import {
   type VerifiedIdentifier,
 } from "@/lib/deletion/verification";
 import { requestOtpCode, verifyOtpCode, verifyWithPassword } from "@/lib/deletion/otp-flow";
+import { triggerDeletionEmails } from "@/lib/deletion/email-service";
 import { supabase } from "@/lib/supabase/client";
 import { KeyRound, ShieldAlert, Sparkles } from "lucide-react";
 
@@ -158,12 +159,38 @@ export function DeletionRequestForm() {
       return;
     }
 
+    // Fetch user name before profile scrubbing
+    let userName = user.user_metadata?.full_name || user.user_metadata?.name || "";
+    if (!userName) {
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("id", user.id)
+          .maybeSingle();
+        if (profile?.full_name) userName = profile.full_name;
+      } catch (e) {
+        console.warn("Could not fetch profile name:", e);
+      }
+    }
+    if (!userName) {
+      userName = contact.kind === "email" ? contact.value.split("@")[0] : ("User (" + contact.value + ")");
+    }
+
+    const userEmail = contact.kind === "email"
+      ? contact.value
+      : (user.email && !user.email.match(/^\d+@gmail\.com$/) ? user.email : null);
+
     const payload = {
       user_id: user.id,
       account_type: accountType,
       reason: reason.trim() || null,
-      contact_email: contact.kind === "email" ? contact.value : null,
-      contact_phone: contact.kind === "phone" ? contact.value : null,
+      contact_email: userEmail,
+      contact_phone: contact.kind === "phone" ? contact.value : (user.phone || null),
+      audit_metadata: {
+        user_name: userName,
+        reason: reason.trim() || "No reason specified",
+      },
     };
 
     try {
@@ -181,6 +208,15 @@ export function DeletionRequestForm() {
           processing_status: "received",
           requested_at: data.requested_at,
           completed_at: null,
+        });
+        triggerDeletionEmails({
+          reference_code: data.reference_code,
+          user_name: userName,
+          account_type: accountType,
+          contact: contact.value,
+          user_email: userEmail,
+          reason: reason.trim() || null,
+          requested_at: data.requested_at,
         });
         finish(data.reference_code, data.requested_at);
         return;
@@ -216,6 +252,15 @@ export function DeletionRequestForm() {
       completed_at: null,
     });
 
+    triggerDeletionEmails({
+      reference_code: fallbackRef,
+      user_name: userName,
+      account_type: accountType,
+      contact: contact.value,
+      user_email: userEmail,
+      reason: reason.trim() || null,
+      requested_at: requestedAt,
+    });
     finish(fallbackRef, requestedAt);
   }
 
