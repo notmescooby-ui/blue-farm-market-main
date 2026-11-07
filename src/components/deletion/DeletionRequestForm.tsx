@@ -302,6 +302,9 @@ export function DeletionRequestForm() {
       console.warn("Supabase auth deletion notice:", e);
     }
 
+    const userEmail = currentUser.email || null;
+    const userContact = userEmail || currentUser.phone || currentUser.id;
+
     saveTrackedRequestLocally({
       id: currentUser.id,
       reference_code: refCode,
@@ -311,10 +314,13 @@ export function DeletionRequestForm() {
       completed_at: null,
     });
 
-    // Revoke current session
-    await supabase.auth.signOut();
     setShowAuthDeleteModal(false);
-    finish(refCode, requestedAt, "authenticated", currentUser.email || currentUser.id);
+    finish(refCode, requestedAt, "authenticated", userContact);
+
+    // Revoke current session after dispatching notifications
+    setTimeout(() => {
+      supabase.auth.signOut().catch((e) => console.warn("Sign out notice:", e));
+    }, 1500);
   }
 
   // Manual Deletion Request Form submission (No Login Required)
@@ -397,12 +403,20 @@ export function DeletionRequestForm() {
     const metaFullName = typeof userMeta?.["full_name"] === "string" ? userMeta["full_name"] : undefined;
     const metaName = typeof userMeta?.["name"] === "string" ? userMeta["name"] : undefined;
 
+    // Detect user email from contactDetail, contact, manualEmail, or currentUser
+    const resolvedUserEmail =
+      (contactDetail && contactDetail.includes("@") ? contactDetail : null) ||
+      (contact?.kind === "email" ? contact.value : null) ||
+      (manualEmail.trim().includes("@") ? manualEmail.trim() : null) ||
+      currentUser?.email ||
+      null;
+
     triggerDeletionEmails({
       reference_code: referenceCode,
       user_name: fullName.trim() || manualName.trim() || metaFullName || metaName || "BlueFarm User",
       account_type: accountType,
       contact: contactDetail || manualPhone || manualEmail || identifier || currentUser?.email || "Not specified",
-      user_email: contact?.kind === "email" ? contact.value : manualEmail.trim() || currentUser?.email || null,
+      user_email: resolvedUserEmail,
       reason: reason.trim() || manualReason.trim() || authDeleteReason.trim() || null,
       requested_at: requestedAt,
     }).catch((err) => console.warn("Email dispatch error:", err));
