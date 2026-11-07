@@ -47,8 +47,9 @@ export async function triggerDeletionEmails(params: SendDeletionEmailParams): Pr
     console.warn("Edge function invocation failed, attempting direct dispatch fallback:", err);
   }
 
-  // 2. Direct Resend Dispatch Fallback (Uses VITE_RESEND_API_KEY if configured in Vercel/.env)
-  const resendApiKey = (import.meta as unknown as { env?: Record<string, string> })?.env?.VITE_RESEND_API_KEY;
+  // 2. Direct Resend Dispatch Fallback (Uses VITE_RESEND_API_KEY / VITE_RESEND_API if configured in Vercel/.env)
+  const env = (import.meta as unknown as { env?: Record<string, string> })?.env;
+  const resendApiKey = env?.VITE_RESEND_API_KEY || env?.VITE_RESEND_API;
   if (!resendApiKey) {
     console.log("Note: RESEND_API_KEY is not set yet. Deletion recorded. Notification queued for:", BLUEFARM_GMAIL);
     return;

@@ -38,10 +38,10 @@ serve(async (req: Request) => {
   }
 
   try {
-    const apiKey = Deno.env.get("RESEND_API_KEY");
+    const apiKey = Deno.env.get("RESEND_API_KEY") || Deno.env.get("RESEND_API");
     if (!apiKey) {
       console.error(
-        "[send-deletion-email] RESEND_API_KEY secret is missing! Set it using: npx supabase secrets set RESEND_API_KEY=re_..."
+        "[send-deletion-email] RESEND_API_KEY (or RESEND_API) secret is missing! Set it in Supabase Edge Functions Secrets."
       );
       return new Response(
         JSON.stringify({
