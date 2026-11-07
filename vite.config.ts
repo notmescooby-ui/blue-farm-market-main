@@ -6,8 +6,8 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // Enforce Vercel preset for Nitro so Vercel builds generate .vercel/output correctly
-if (process.env.VERCEL || !process.env.NITRO_PRESET) {
-  process.env.NITRO_PRESET = "vercel";
+if (process.env["VERCEL"] || !process.env["NITRO_PRESET"]) {
+  process.env["NITRO_PRESET"] = "vercel";
 }
 
 export default defineConfig({

@@ -2,21 +2,21 @@ import { supabase } from "./client";
 
 export interface AquacultureListing {
   id: string;
-  farmer_id?: string;
-  farmer_name?: string;
+  farmer_id?: string | undefined;
+  farmer_name?: string | undefined;
   species: string;
   category: "shrimp" | "fish" | "crab" | "seed" | "feed";
   quantity_kg: number;
   price_per_kg: number;
   location: string;
-  state?: string;
-  harvest_date?: string;
-  grade_count?: string; // e.g., "30 Count", "40 Count", "Grade A"
-  waterbody_type?: string; // Brackish Water, Freshwater, Saline
+  state?: string | undefined;
+  harvest_date?: string | undefined;
+  grade_count?: string | undefined; // e.g., "30 Count", "40 Count", "Grade A"
+  waterbody_type?: string | undefined; // Brackish Water, Freshwater, Saline
   status: "active" | "sold" | "archived";
   created_at: string;
-  image_url?: string;
-  is_sample?: boolean;
+  image_url?: string | undefined;
+  is_sample?: boolean | undefined;
 }
 
 export interface SensorTelemetry {
@@ -206,28 +206,28 @@ export async function getListings(): Promise<{
 
     if (data && data.length > 0) {
       const formatted: AquacultureListing[] = data.map((item: Record<string, unknown>) => ({
-        id: String(item.id),
-        farmer_id: (item.farmer_id as string) || (item.user_id as string),
+        id: String(item["id"]),
+        farmer_id: (item["farmer_id"] as string) || (item["user_id"] as string) || undefined,
         farmer_name:
-          (item.farmer_name as string) || (item.seller_name as string) || "Verified Farmer",
-        species: (item.species as string) || (item.title as string) || "Aquaculture Produce",
+          (item["farmer_name"] as string) || (item["seller_name"] as string) || "Verified Farmer",
+        species: (item["species"] as string) || (item["title"] as string) || "Aquaculture Produce",
         category:
-          (item.category as AquacultureListing["category"]) ||
-          (String(item.species || "")
+          (item["category"] as AquacultureListing["category"]) ||
+          (String(item["species"] || "")
             .toLowerCase()
             .includes("shrimp")
             ? "shrimp"
             : "fish"),
-        quantity_kg: Number(item.quantity_kg || item.quantity || 0),
-        price_per_kg: Number(item.price_per_kg || item.price || 0),
-        location: (item.location as string) || (item.city as string) || "Coastal Aquaculture Hub",
-        state: (item.state as string) || "India",
-        harvest_date: (item.harvest_date as string) || "Fresh",
-        grade_count: (item.grade_count as string) || (item.grade as string) || "Standard Grade",
-        waterbody_type: (item.waterbody_type as string) || "Brackish Water",
-        status: (item.status as AquacultureListing["status"]) || "active",
-        created_at: (item.created_at as string) || new Date().toISOString(),
-        image_url: (item.image_url as string) || undefined,
+        quantity_kg: Number(item["quantity_kg"] || item["quantity"] || 0),
+        price_per_kg: Number(item["price_per_kg"] || item["price"] || 0),
+        location: (item["location"] as string) || (item["city"] as string) || "Coastal Aquaculture Hub",
+        state: (item["state"] as string) || "India",
+        harvest_date: (item["harvest_date"] as string) || "Fresh",
+        grade_count: (item["grade_count"] as string) || (item["grade"] as string) || "Standard Grade",
+        waterbody_type: (item["waterbody_type"] as string) || "Brackish Water",
+        status: (item["status"] as AquacultureListing["status"]) || "active",
+        created_at: (item["created_at"] as string) || new Date().toISOString(),
+        image_url: (item["image_url"] as string) || undefined,
         is_sample: false,
       }));
       return { listings: formatted, isLiveSupabase: true, error: null };

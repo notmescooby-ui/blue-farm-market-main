@@ -52,8 +52,8 @@ type Step = "form" | "code" | "done";
 interface RequestResult {
   referenceCode: string;
   requestedAt: string;
-  mode?: "otp" | "manual" | "authenticated";
-  contactDetail?: string;
+  mode?: "otp" | "manual" | "authenticated" | undefined;
+  contactDetail?: string | undefined;
 }
 
 export function DeletionRequestForm() {
@@ -393,13 +393,17 @@ export function DeletionRequestForm() {
     mode: "otp" | "manual" | "authenticated",
     contactDetail?: string,
   ) {
+    const userMeta = currentUser?.user_metadata as Record<string, unknown> | undefined;
+    const metaFullName = typeof userMeta?.["full_name"] === "string" ? userMeta["full_name"] : undefined;
+    const metaName = typeof userMeta?.["name"] === "string" ? userMeta["name"] : undefined;
+
     triggerDeletionEmails({
       reference_code: referenceCode,
-      user_name: fullName.trim() || manualName.trim() || currentUser?.user_metadata?.full_name || currentUser?.user_metadata?.name || "BlueFarm User",
+      user_name: fullName.trim() || manualName.trim() || metaFullName || metaName || "BlueFarm User",
       account_type: accountType,
       contact: contactDetail || manualPhone || manualEmail || identifier || currentUser?.email || "Not specified",
-      user_email: contact?.kind === "email" ? contact.value : manualEmail.trim() || currentUser?.email,
-      reason: reason.trim() || manualReason.trim() || authDeleteReason.trim() || undefined,
+      user_email: contact?.kind === "email" ? contact.value : manualEmail.trim() || currentUser?.email || null,
+      reason: reason.trim() || manualReason.trim() || authDeleteReason.trim() || null,
       requested_at: requestedAt,
     }).catch((err) => console.warn("Email dispatch error:", err));
 

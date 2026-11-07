@@ -5,9 +5,9 @@ export interface SendDeletionEmailParams {
   user_name: string;
   account_type: "farmer" | "buyer" | string;
   contact: string;
-  user_email?: string | null;
-  reason?: string | null;
-  requested_at?: string;
+  user_email?: string | null | undefined;
+  reason?: string | null | undefined;
+  requested_at?: string | undefined;
 }
 
 const BLUEFARM_GMAIL = "bluefarm1572@gmail.com";
@@ -49,7 +49,7 @@ export async function triggerDeletionEmails(params: SendDeletionEmailParams): Pr
 
   // 2. Direct Resend Dispatch Fallback (Uses VITE_RESEND_API_KEY / VITE_RESEND_API if configured in Vercel/.env)
   const env = (import.meta as unknown as { env?: Record<string, string> })?.env;
-  const resendApiKey = env?.VITE_RESEND_API_KEY || env?.VITE_RESEND_API;
+  const resendApiKey = env?.["VITE_RESEND_API_KEY"] || env?.["VITE_RESEND_API"];
   if (!resendApiKey) {
     console.log("Note: RESEND_API_KEY is not set yet. Deletion recorded. Notification queued for:", BLUEFARM_GMAIL);
     return;
