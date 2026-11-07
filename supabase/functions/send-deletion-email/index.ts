@@ -191,6 +191,7 @@ serve(async (req: Request) => {
         success: adminEmailRes.ok,
         reference_code,
         admin_notified: adminEmailRes.ok,
+        admin_email_id: adminData?.id,
         user_notified: userEmailSent,
         admin_error: adminEmailRes.ok ? undefined : adminData,
       }),
